@@ -10,7 +10,7 @@ export default function Movies({ popular }) {
           <MovieCard
             key={item.id}
             id={item.id}
-            image={tmdbImage(item.poster_path)}
+            image={tmdbImage(item.poster_path, 185)}
             title={item.title || item.original_title}
             releaseDate={item.release_date}
           />

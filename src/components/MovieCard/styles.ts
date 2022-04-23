@@ -1,6 +1,4 @@
-import Link from 'next/link'
 import styled, { css } from 'styled-components'
-import Image from 'next/image'
 
 export const Container = styled.div`
   a {
@@ -8,9 +6,12 @@ export const Container = styled.div`
   }
 `
 
-export const Cover = styled(Image)`
+export const Cover = styled.img`
   border-radius: 4px;
   border: 1px solid #e7e7e7 !important;
+  width: 176px;
+  height: 264px;
+  object-fit: cover;
 `
 
 export const Title = styled.h4`

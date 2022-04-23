@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
@@ -41,15 +40,14 @@ export const CoverContainer = styled.div`
   `}
 `
 
-export const Cover = styled(Image)`
+export const Cover = styled.img`
   border-radius: 8px;
+  width: 383px;
+  height: 574px;
+  object-fit: cover;
 `
 
-export const MovieDetails = styled.div`
-  ${media.lessThan('large')`
-
-  `}
-`
+export const MovieDetails = styled.div``
 
 export const Title = styled.h1`
   ${({ theme }) => css`

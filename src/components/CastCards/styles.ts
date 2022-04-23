@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import styled, { css } from 'styled-components'
 
 export const Container = styled.section``
@@ -75,8 +74,11 @@ export const Card = styled.div`
   `}
 `
 
-export const ProfileImage = styled(Image)`
+export const ProfileImage = styled.img`
   border-radius: 4px;
+  width: 175px;
+  height: 222px;
+  object-fit: cover;
 `
 
 export const ShowMore = styled.div`

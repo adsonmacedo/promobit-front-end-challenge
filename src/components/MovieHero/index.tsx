@@ -45,12 +45,8 @@ export default function MovieHero({ movie, releaseDates, credits }) {
         <S.Content>
           <S.CoverContainer>
             <S.Cover
-              src={tmdbImage(movie.poster_path)}
+              src={tmdbImage(movie.poster_path, 400)}
               alt={movie.title || movie.original_title}
-              width={383}
-              height={574}
-              objectFit="cover"
-              priority
             />
           </S.CoverContainer>
           <S.MovieDetails>

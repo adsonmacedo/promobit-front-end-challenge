@@ -15,11 +15,8 @@ export default function CastCards({ credits, movie }) {
             <S.Card key={person.id}>
               {person.profile_path ? (
                 <S.ProfileImage
-                  src={tmdbImage(person.profile_path)}
+                  src={tmdbImage(person.profile_path, 185)}
                   alt={person.name}
-                  width={175}
-                  height={222}
-                  objectFit="cover"
                 />
               ) : (
                 <S.NoPicture>

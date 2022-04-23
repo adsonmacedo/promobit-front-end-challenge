@@ -13,7 +13,7 @@ export default function Recommendations({ recommendations }) {
               <MovieCard
                 key={rec.id}
                 id={rec.id}
-                image={tmdbImage(rec.poster_path)}
+                image={tmdbImage(rec.poster_path, 185)}
                 title={rec.title || rec.original_title}
                 releaseDate={rec.release_date}
               />

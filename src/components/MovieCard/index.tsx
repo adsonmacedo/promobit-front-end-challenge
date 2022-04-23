@@ -15,14 +15,7 @@ export default function MovieCard({ id, image, title, releaseDate }: Props) {
     <S.Container>
       <Link href={`/movie/${id}`}>
         <a>
-          <S.Cover
-            src={image}
-            width={176}
-            height={264}
-            alt=""
-            objectFit="cover"
-            priority
-          />
+          <S.Cover src={image} alt={title} />
           <S.Title>{title}</S.Title>
           <S.ReleaseDate>
             {releaseDate &&

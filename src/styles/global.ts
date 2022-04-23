@@ -35,6 +35,10 @@ export default createGlobalStyle`
     }
   }
 
+  img {
+    width: 100%;
+  }
+
   button,
   input {
     font-family: inherit;

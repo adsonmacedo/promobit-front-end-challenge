@@ -32,6 +32,8 @@ export const CoverContainer = styled.div`
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
   margin-bottom: -46px;
   flex-shrink: 0;
+  width: 383px;
+  height: 574px;
 
   ${media.lessThan('medium')`
     margin: 0 auto;
@@ -42,8 +44,6 @@ export const CoverContainer = styled.div`
 
 export const Cover = styled.img`
   border-radius: 8px;
-  width: 383px;
-  height: 574px;
   object-fit: cover;
 `
 

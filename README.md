@@ -27,6 +27,16 @@ npm install
 yarn install
 ```
 
+Antes de iniciar o servidor, crie um arquivo chamado `.env.local` na raiz do projeto, e cole o seguinte código:
+
+```ini
+NEXT_PUBLIC_TMDB_API_KEY=CHAVE_API_V3
+
+TMDB_TOKEN=TOKEN_DE_LEITURA_DA_API_V4
+```
+
+Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)**, e `TOKEN_DE_LEITURA_DA_API_V4` pelo seu **Token de Leitura da API (v4 auth)**.
+
 Inicie o servidor:
 
 ```bash

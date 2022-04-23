@@ -20,12 +20,14 @@ export default function Home({ genres, popular }) {
         .get(
           `https://api.themoviedb.org/3/discover/movie?with_genres=${filters.join(
             ','
-          )}&api_key=e5af64d5491ec5f5ffbdce46368ad9bc`
+          )}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
         )
         .then(response => {
           setData(response.data.results.filter(i => i.poster_path))
           setLoading(false)
         })
+    } else {
+      setData(null)
     }
   }, [filters])
 

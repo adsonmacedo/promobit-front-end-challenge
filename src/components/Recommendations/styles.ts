@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
+import * as S from '../MovieCard/styles'
 
 export const Container = styled.section``
 
@@ -23,11 +24,26 @@ export const Title = styled.h2`
 export const Content = styled.div`
   margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 176px);
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, 166px);
+  gap: 32px 20px;
   justify-content: space-between;
+  transition: all 200ms;
 
-  ${media.lessThan('large')`
-      justify-content: center;
+  ${S.Cover} {
+    width: 166px;
+    height: 249px;
+
+    ${media.lessThan('small')`
+      width: 100%;
+      height: 76%;
     `}
+  }
+
+  ${media.lessThan('medium')`
+    justify-content: center
+  `}
+
+  ${media.lessThan('small')`
+    grid-template-columns: repeat(2, 1fr);
+  `}
 `

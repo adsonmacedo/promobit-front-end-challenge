@@ -18,5 +18,21 @@ export const Wrapper = styled.div`
     ${media.lessThan('large')`
       justify-content: center;
     `}
+
+    ${media.lessThan('small')`
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 20px;
+    `}
+
+    .cover {
+      width: 176px;
+      height: 264px;
+
+      ${media.lessThan('small')`
+        width: 100%;
+        height: auto;
+        padding-top: 142.213%;
+      `}
+    }
   `}
 `

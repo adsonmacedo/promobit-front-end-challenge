@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 export const Container = styled.div`
   a {
@@ -12,6 +13,12 @@ export const Cover = styled.img`
   width: 176px;
   height: 264px;
   object-fit: cover;
+  transition: all 200ms;
+
+  ${media.lessThan('small')`
+    width: 100%;
+    height: 76%;
+  `}
 `
 
 export const Title = styled.h4`

@@ -18,5 +18,10 @@ export const Wrapper = styled.div`
     ${media.lessThan('large')`
       justify-content: center;
     `}
+
+    ${media.lessThan('small')`
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 20px;
+    `}
   `}
 `

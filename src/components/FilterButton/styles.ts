@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import media from 'styled-media-query'
 
 export const Button = styled.button`
   ${({ theme }) => css`
@@ -13,6 +14,16 @@ export const Button = styled.button`
     cursor: pointer;
     display: flex;
     align-items: center;
+
+    ${media.lessThan('medium')`
+      font-size: 1.4rem;
+      padding: 6px 14px;
+    `}
+
+    ${media.lessThan('small')`
+      font-size: 1.2rem;
+      padding: 4px 10px;
+    `}
 
     svg {
       margin-left: 10px;

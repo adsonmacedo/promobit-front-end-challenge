@@ -8,7 +8,7 @@ export default function MoviesSkeleton() {
       <S.Wrapper>
         {[...Array(20)].map((_, idx) => (
           <div key={idx}>
-            <Skeleton borderRadius={4} width={176} height={264} />
+            <Skeleton className="cover" borderRadius={4} />
             <Skeleton borderRadius={4} style={{ marginTop: '15px' }} />
             <Skeleton
               borderRadius={4}

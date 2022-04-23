@@ -3,7 +3,7 @@
 ![promobit-front-end-challenge](https://user-images.githubusercontent.com/49072766/164571639-029674d8-a312-4680-be02-d49c96666a87.jpg)
 
 
-[Live demo 🚀](https://promobit-front-end-challenge-movies.vercel.app)
+[Live demo 🚀](https://promobit-front-end-challenge.netlify.app)
 
 ## Rode o servidor localmente
 

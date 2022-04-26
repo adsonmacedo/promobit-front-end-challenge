@@ -3,6 +3,7 @@ import media from 'styled-media-query'
 
 export const Button = styled.button`
   ${({ theme }) => css`
+    position: relative;
     border: none;
     background-color: ${theme.colors.filters.inactive.bg};
     color: ${theme.colors.filters.inactive.text};
@@ -25,13 +26,28 @@ export const Button = styled.button`
       padding: 4px 10px;
     `}
 
-    svg {
-      margin-left: 10px;
-    }
-
     &.active {
       background-color: ${theme.colors.filters.active.bg};
       color: ${theme.colors.filters.active.text};
     }
   `}
+`
+
+export const CloseBtn = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  padding: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 200ms ease-in-out;
+
+  &:hover {
+    color: white;
+  }
+
+  ${({ theme }) =>
+    `background-image: linear-gradient(to right, transparent -10%, ${theme.colors.filters.active.bg} 20%)`}
 `

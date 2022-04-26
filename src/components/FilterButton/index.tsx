@@ -22,7 +22,11 @@ export default function FilterButton({ children, id, handleFilters }: Props) {
       }}
     >
       {children}
-      {active && <RiCloseCircleFill size={20} />}
+      {active && (
+        <S.CloseBtn>
+          <RiCloseCircleFill size={20} />
+        </S.CloseBtn>
+      )}
     </S.Button>
   )
 }

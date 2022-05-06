@@ -25,14 +25,8 @@ export const Wrapper = styled.div`
     `}
 
     .cover {
-      width: 176px;
-      height: 264px;
-
-      ${media.lessThan('small')`
-        width: 100%;
-        height: auto;
-        padding-top: 142.213%;
-      `}
+      width: 100%;
+      aspect-ratio: 2 / 3;
     }
   `}
 `

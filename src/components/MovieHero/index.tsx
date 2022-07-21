@@ -52,19 +52,28 @@ export default function MovieHero({ movie, releaseDates, credits }) {
           <S.MovieDetails>
             <S.Title>
               {movie.title || movie.original_title} (
-              {format(new Date(movie.release_date), 'yyyy')})
+              {movie.release_date
+                ? format(new Date(movie.release_date), 'yyyy')
+                : '-'}
+              )
             </S.Title>
             <S.QuickInfo>
+              {data.certification && (
+                <>
+                  <span>
+                    {data.certification}{' '}
+                    {Number(releaseDates.release_dates[0].certification)
+                      ? 'anos'
+                      : null}
+                  </span>
+                  <span className="bullet">&bull;</span>
+                </>
+              )}
               <span>
-                {data.certification}{' '}
-                {Number(releaseDates.release_dates[0].certification)
-                  ? 'anos'
-                  : null}
-              </span>
-              <span className="bullet">&bull;</span>
-              <span>
-                {format(new Date(data.releaseDate), "dd'/'MM'/'yyyy")} (
-                {data.country})
+                {data.releaseDate
+                  ? format(new Date(data.releaseDate), "dd'/'MM'/'yyyy")
+                  : '-'}{' '}
+                ({data.country})
               </span>
               <span className="bullet">&bull;</span>
               <span>
@@ -74,9 +83,11 @@ export default function MovieHero({ movie, releaseDates, credits }) {
               </span>
               <span className="bullet">&bull;</span>
               <span>
-                {movie.runtime < 60
-                  ? format(movie.runtime * 1000, "ss'm'")
-                  : format(movie.runtime * 1000, "m'h' ss'm'")}
+                {movie.runtime
+                  ? movie.runtime < 60
+                    ? format(movie.runtime * 1000, "ss'm'")
+                    : format(movie.runtime * 1000, "m'h' ss'm'")
+                  : '-'}
               </span>
             </S.QuickInfo>
             {!!percent && (

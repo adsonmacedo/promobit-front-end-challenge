@@ -4,7 +4,7 @@ import { HiArrowSmRight } from 'react-icons/hi'
 import { AvatarMan, AvatarUnknown, AvatarWoman } from '../GenderAvatars'
 
 export default function CastCards({ credits, movie }) {
-  const cast = credits.cast.slice(0, 10)
+  const cast: any[] = credits.cast.slice(0, 10)
 
   return (
     <S.Container>
@@ -35,16 +35,20 @@ export default function CastCards({ credits, movie }) {
               <span>{person.character}</span>
             </S.Card>
           ))}
-          <S.ShowMore>
-            <a
-              href={`https://www.themoviedb.org/movie/${movie.id}/cast`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Mostrar mais
-            </a>
-            <HiArrowSmRight size={24} />
-          </S.ShowMore>
+          {cast.length > 0 ? (
+            <S.ShowMore>
+              <a
+                href={`https://www.themoviedb.org/movie/${movie.id}/cast`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Mostrar mais
+              </a>
+              <HiArrowSmRight size={24} />
+            </S.ShowMore>
+          ) : (
+            <span>Elenco não disponível</span>
+          )}
         </S.Content>
       </S.Wrapper>
     </S.Container>

@@ -54,7 +54,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const getRecommendations = await api.get(
     `/movie/${params.id}/recommendations`
   )
-  const recommendations = getRecommendations.data.results.slice(0, 12)
+  const recommendations = getRecommendations.data.results
+    .filter((f: FilteredDataProps) => f.poster_path && f.genre_ids.length)
+    .slice(0, 12)
 
   const getVideos = await api.get(`/movie/${params.id}/videos`)
   const trailer = getVideos.data.results.filter(

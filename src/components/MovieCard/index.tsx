@@ -18,10 +18,11 @@ export default function MovieCard({ id, image, title, releaseDate }: Props) {
           <S.Cover src={image} alt={title} />
           <S.Title>{title}</S.Title>
           <S.ReleaseDate>
-            {releaseDate &&
-              format(new Date(releaseDate), 'dd MMM yyyy', {
-                locale: ptBR,
-              })}
+            {releaseDate
+              ? format(new Date(releaseDate), 'dd MMM yyyy', {
+                  locale: ptBR,
+                })
+              : '-'}
           </S.ReleaseDate>
         </a>
       </Link>

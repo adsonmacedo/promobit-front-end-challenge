@@ -53,7 +53,7 @@ export default function MovieHero({ movie, releaseDates, credits }) {
             <S.Title>
               {movie.title || movie.original_title} (
               {movie.release_date
-                ? format(new Date(movie.release_date), 'yyyy')
+                ? format(new Date(movie.release_date + 'EDT'), 'yyyy')
                 : '-'}
               )
             </S.Title>
@@ -71,7 +71,7 @@ export default function MovieHero({ movie, releaseDates, credits }) {
               )}
               <span>
                 {data.releaseDate
-                  ? format(new Date(data.releaseDate), "dd'/'MM'/'yyyy")
+                  ? format(new Date(data.releaseDate), 'dd/MM/yyyy')
                   : '-'}{' '}
                 ({data.country})
               </span>
@@ -104,7 +104,9 @@ export default function MovieHero({ movie, releaseDates, credits }) {
                       height: 'inherit',
                     }}
                   />
-                  <S.Percentage color={color}>{`${percent}%`}</S.Percentage>
+                  <S.Percentage color={color}>{`${Math.floor(
+                    percent
+                  )}%`}</S.Percentage>
                 </S.Progress>
                 <span>Avaliação dos usuários</span>
               </S.Rating>

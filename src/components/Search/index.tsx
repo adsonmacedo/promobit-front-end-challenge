@@ -34,7 +34,6 @@ export default function Search() {
           if (filteredData.length) {
             setShowResults(true)
             setResults(filteredData)
-            console.log(filteredData)
           } else {
             setShowResults(false)
             setResults([])

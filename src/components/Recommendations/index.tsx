@@ -2,11 +2,14 @@ import { tmdbImage } from '../../utils/tmdbImage'
 import MovieCard from '../MovieCard'
 import * as S from './styles'
 
-export default function Recommendations({ recommendations }) {
+export default function Recommendations({
+  recommendations,
+  title = 'Recomendações',
+}) {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Title>Recomendações</S.Title>
+        <S.Title>{title}</S.Title>
         <S.Content>
           {recommendations.length ? (
             recommendations.map(rec => (

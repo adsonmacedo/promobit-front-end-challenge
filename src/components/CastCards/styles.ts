@@ -58,15 +58,24 @@ export const Card = styled.div`
     padding: 8px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
+    a {
+      text-decoration: none;
+    }
+
     h3 {
       margin-top: 16px;
       font-size: 1.8rem;
       font-weight: 700;
       line-height: 1.3;
       color: ${theme.colors.text.lighterBlack};
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.5);
+      }
     }
 
     span {
+      display: block;
       margin-top: 4px;
       line-height: 1.3;
       color: ${theme.colors.text.lighterBlack};

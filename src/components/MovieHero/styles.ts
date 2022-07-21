@@ -31,9 +31,11 @@ export const Content = styled.div`
 export const CoverContainer = styled.div`
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
   margin-bottom: -46px;
+  display: flex;
   flex-shrink: 0;
   width: 383px;
   height: 574px;
+  position: relative;
 
   ${media.lessThan('medium')`
     margin: 0 auto;

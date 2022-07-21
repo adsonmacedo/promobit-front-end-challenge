@@ -5,6 +5,7 @@ import Filters from '../components/Filters'
 import Header from '../components/Header'
 import Movies from '../components/Movies'
 import MoviesSkeleton from '../components/MoviesSkeleton'
+import { FilteredDataProps } from '../components/Search'
 import { FiltersContext } from '../contexts/FiltersContext'
 import { api } from '../services/api'
 
@@ -54,7 +55,9 @@ export default function Home({ genres, popular }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const getPopular = await api.get('/movie/popular?page=1')
-  const popularWithImage = getPopular.data.results.filter(i => i.poster_path)
+  const popularWithImage = getPopular.data.results.filter(
+    (f: FilteredDataProps) => f.poster_path && f.genre_ids.length
+  )
 
   const getGenres = await api.get('/genre/movie/list')
 

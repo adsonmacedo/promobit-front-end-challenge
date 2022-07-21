@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { FiltersContext } from '../../contexts/FiltersContext'
 import FilterButton from '../FilterButton'
+import Search from '../Search'
 import * as S from './styles'
 
 type GenresType = {
@@ -42,6 +43,8 @@ export default function Filters({ genres }: Props) {
             </FilterButton>
           ))}
         </S.FilterButtons>
+        <S.FilterBy>Pesquisar:</S.FilterBy>
+        <Search />
       </S.Wrapper>
     </S.Container>
   )

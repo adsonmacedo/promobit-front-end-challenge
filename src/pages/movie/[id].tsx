@@ -5,6 +5,7 @@ import CastCards from '../../components/CastCards'
 import Header from '../../components/Header'
 import MovieHero from '../../components/MovieHero'
 import Recommendations from '../../components/Recommendations'
+import { FilteredDataProps } from '../../components/Search'
 import Trailer from '../../components/Trailer'
 import { FiltersContext } from '../../contexts/FiltersContext'
 import { api } from '../../services/api'
@@ -73,7 +74,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await api.get(`/movie/popular?page=1`)
-  const movies = response.data.results.filter(i => i.poster_path)
+  const movies = response.data.results.filter(
+    (f: FilteredDataProps) => f.poster_path && f.genre_ids.length
+  )
 
   const ids = movies.map(movie => movie.id)
   const paths = ids.map(id => ({

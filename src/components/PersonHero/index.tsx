@@ -12,6 +12,7 @@ export default function PersonHero({ person }) {
   const [deathDay, setDeathDay] = useState('')
   const [englishBio, setEnglishBio] = useState('')
   const [age, setAge] = useState(0)
+  const [deathAge, setDeathAge] = useState(0)
   const router = useRouter()
 
   useEffect(() => {
@@ -48,6 +49,17 @@ export default function PersonHero({ person }) {
     }
     getAge()
 
+    const getDeathAge = () => {
+      if (deathDay) {
+        const age = differenceInYears(
+          new Date(person.birthday),
+          new Date(person.deathday)
+        )
+        setDeathAge(age)
+      }
+    }
+    getDeathAge()
+
     const getDeathDay = () => {
       if (person.deathday) {
         const date = format(new Date(person.deathday + 'EDT'), 'dd/MM/yyyy')
@@ -55,7 +67,7 @@ export default function PersonHero({ person }) {
       }
     }
     getDeathDay()
-  }, [birthDay, person.birthday, person.deathday, person.gender])
+  }, [birthDay, deathDay, person.birthday, person.deathday, person.gender])
 
   const loadEnglishBio = async () => {
     try {
@@ -136,7 +148,7 @@ export default function PersonHero({ person }) {
                   <S.Detail>
                     {deathDay ? (
                       <>
-                        {deathDay} ({Math.abs(age)} anos)
+                        {deathDay} ({Math.abs(deathAge)} anos)
                       </>
                     ) : (
                       '-'

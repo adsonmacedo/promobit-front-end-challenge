@@ -2,7 +2,6 @@
 
 ![promobit-front-end-challenge](https://user-images.githubusercontent.com/49072766/164571639-029674d8-a312-4680-be02-d49c96666a87.jpg)
 
-
 [Live demo 🚀](https://promobit-front-end-challenge.netlify.app)
 
 ## Rode o servidor localmente
@@ -31,11 +30,9 @@ Antes de iniciar o servidor, crie um arquivo chamado `.env.local` na raiz do pro
 
 ```ini
 NEXT_PUBLIC_TMDB_API_KEY=CHAVE_API_V3
-
-TMDB_TOKEN=TOKEN_DE_LEITURA_DA_API_V4
 ```
 
-Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)**, e `TOKEN_DE_LEITURA_DA_API_V4` pelo seu **Token de Leitura da API (v4 auth)**.
+Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)**.
 
 Inicie o servidor:
 

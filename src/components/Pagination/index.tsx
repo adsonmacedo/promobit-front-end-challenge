@@ -64,7 +64,6 @@ export default function Pagination({ onClick }) {
           </S.ButtonNumeric>
 
           <S.Button
-            // disabled={total === 1 || page === total}
             className={cx({ disabled: total === 1 || page === total })}
             onClick={() => {
               if (total !== 1 && page !== total) {

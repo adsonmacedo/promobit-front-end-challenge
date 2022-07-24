@@ -21,7 +21,9 @@ export const Pagination = styled.div`
   align-items: center;
 
   ${media.lessThan('small')`
-  padding: 8px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
   `}
 `
 
@@ -40,27 +42,14 @@ export const Button = styled.button`
     transition: color 200ms;
     color: ${theme.colors.pagination.active};
 
-    ${media.lessThan('medium')`
-      min-width: 20px;
-    `}
-
-    ${media.lessThan('small')`
-      min-width: 15px;
-      padding: 5px;
-    `}
-
-    &.numeric {
+    &:disabled,
+    &:disabled:hover {
+      cursor: not-allowed;
       color: ${theme.colors.pagination.default};
     }
 
-    ${media.greaterThan('medium')`
-      &:hover {
-        color: ${theme.colors.pagination.active};
-      }
-    `}
-
-    &:disabled,
-    &:disabled:hover {
+    &.disabled,
+    &.disabled:hover {
       cursor: not-allowed;
       color: ${theme.colors.pagination.default};
     }
@@ -68,5 +57,21 @@ export const Button = styled.button`
     &.active {
       color: ${theme.colors.pagination.active};
     }
+  `}
+`
+
+export const ButtonNumeric = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+
+    button {
+      color: ${theme.colors.pagination.default};
+    }
+
+    ${media.lessThan('small')`
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+      padding: 0 5px;
+    `}
   `}
 `

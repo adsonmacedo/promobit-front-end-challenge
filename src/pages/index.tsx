@@ -18,10 +18,6 @@ export default function Home({ popular, genres }) {
   const ref = useRef(null)
 
   useEffect(() => {
-    ref.current.scrollIntoView({ behavior: 'smooth' })
-  }, [page])
-
-  useEffect(() => {
     const init = () => {
       if (page === 1 && !filters.length) {
         setTotal(500)
@@ -74,6 +70,10 @@ export default function Home({ popular, genres }) {
     paginatePopular()
   }, [filters, page, setPage, setTotal])
 
+  const scrollTop = () => {
+    ref.current.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <Head>
@@ -87,7 +87,7 @@ export default function Home({ popular, genres }) {
       <main ref={ref}>
         {isLoading ? <MoviesSkeleton /> : <Movies popular={data || popular} />}
       </main>
-      <Pagination />
+      <Pagination onClick={scrollTop} />
     </>
   )
 }

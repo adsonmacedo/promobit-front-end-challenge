@@ -16,6 +16,27 @@ export const Container = styled.div`
 export const InputContainer = styled.div`
   width: 100%;
   max-width: 600px;
+  position: relative;
+
+  button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+    transition: color 200ms;
+    ${({ theme }) => css`
+      color: ${theme.colors.text.lighterGray};
+
+      &:hover {
+        color: ${theme.colors.text.gray};
+      }
+    `}
+  }
 `
 
 export const Input = styled.input`

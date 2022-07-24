@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 import { tmdbImage } from '../../utils/tmdbImage'
 import * as S from './styles'
 import { AvatarMan, AvatarUnknown, AvatarWoman } from '../GenderAvatars'
-import { api } from '../../services/api'
 import { useRouter } from 'next/router'
+import { tmdbApi } from '../../utils/tmdbApi'
+import { HiInformationCircle } from 'react-icons/hi'
 
 export default function PersonHero({ person }) {
   const [gender, setGender] = useState('')
@@ -67,24 +68,31 @@ export default function PersonHero({ person }) {
       }
     }
     getDeathDay()
-  }, [birthDay, deathDay, person.birthday, person.deathday, person.gender])
 
-  const loadEnglishBio = async () => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/person/${router.query.id}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US`
-      )
-      const data = await response.json()
+    if (!person.biography) {
+      const loadEnglishBio = async () => {
+        const { biography } = await tmdbApi(`/person/${router.query.id}`, {
+          axiosConfig: {
+            params: { language: 'en-US' },
+          },
+        })
 
-      if (data.biography) {
-        setEnglishBio(data.biography)
-      } else {
-        setEnglishBio(`Biografia não disponível em inglês para ${person.name}`)
+        if (!!biography) {
+          setEnglishBio(biography)
+        }
       }
-    } catch (err) {
-      console.error(err.message)
+
+      loadEnglishBio()
     }
-  }
+  }, [
+    birthDay,
+    deathDay,
+    person.biography,
+    person.birthday,
+    person.deathday,
+    person.gender,
+    router.query.id,
+  ])
 
   return (
     <S.Container>
@@ -111,14 +119,15 @@ export default function PersonHero({ person }) {
 
             <S.Biography>
               <S.Title>Biografia</S.Title>
+              {!!englishBio && (
+                <S.EnglishBio>
+                  <HiInformationCircle size={20} />
+                  <span>Disponível apenas em inglês para {person.name}!</span>
+                </S.EnglishBio>
+              )}
               <p>
                 {person.biography || englishBio || (
-                  <>
-                    <span>Não temos uma biografia para {person.name}.</span>
-                    <S.NoBiography type="button" onClick={loadEnglishBio}>
-                      Tentar carregar em inglês
-                    </S.NoBiography>
-                  </>
+                  <span>Não temos uma biografia para {person.name}.</span>
                 )}
               </p>
             </S.Biography>

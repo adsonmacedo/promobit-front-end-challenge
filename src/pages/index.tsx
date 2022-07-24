@@ -5,32 +5,63 @@ import Filters from '../components/Filters'
 import Header from '../components/Header'
 import Movies from '../components/Movies'
 import MoviesSkeleton from '../components/MoviesSkeleton'
-import { FilteredDataProps } from '../components/Search'
+import Pagination from '../components/Pagination'
 import { FiltersContext } from '../contexts/FiltersContext'
-import { api } from '../services/api'
+import { PaginationContext } from '../contexts/PaginationContext'
+import { tmdbApi } from '../utils/tmdbApi'
 
-export default function Home({ genres, popular }) {
+export default function Home({ popular, genres }) {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const { filters } = useContext(FiltersContext)
+  const { page, setTotal } = useContext(PaginationContext)
 
   useEffect(() => {
-    if (filters.length) {
-      setLoading(true)
-      api
-        .get(
-          `https://api.themoviedb.org/3/discover/movie?with_genres=${filters.join(
-            ','
-          )}&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+    setTotal(500)
+
+    const getMoviesByFilters = async () => {
+      if (filters.length) {
+        setLoading(true)
+
+        const { total_pages } = await tmdbApi(
+          `/discover/movie?with_genres=${filters.join(',')}`
         )
-        .then(response => {
-          setData(response.data.results.filter(i => i.poster_path))
-          setLoading(false)
-        })
-    } else {
-      setData(null)
+
+        setTotal(total_pages >= 500 ? 500 : total_pages)
+
+        const data = await tmdbApi(
+          `/discover/movie?with_genres=${filters.join(',')}&page=${page}`,
+          {
+            arrayName: 'results',
+            enableFilter: true,
+          }
+        )
+
+        setData(data)
+        setLoading(false)
+      } else {
+        setData(null)
+      }
     }
-  }, [filters])
+    getMoviesByFilters()
+
+    const paginatePopular = async () => {
+      if (page > 1 && !filters.length) {
+        setLoading(true)
+
+        const data = await tmdbApi(`/movie/popular?page=${page}`, {
+          arrayName: 'results',
+          enableFilter: true,
+        })
+
+        setData(data)
+        setLoading(false)
+      } else {
+        setData(null)
+      }
+    }
+    paginatePopular()
+  }, [filters, page, setTotal])
 
   return (
     <>
@@ -43,28 +74,27 @@ export default function Home({ genres, popular }) {
       <Header />
       <Filters genres={genres} />
       <main>
-        {isLoading ? (
-          <MoviesSkeleton />
-        ) : (
-          <Movies popular={data ? data : popular} />
-        )}
+        {isLoading ? <MoviesSkeleton /> : <Movies popular={data || popular} />}
       </main>
+      <Pagination />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const getPopular = await api.get('/movie/popular?page=1')
-  const popularWithImage = getPopular.data.results.filter(
-    (f: FilteredDataProps) => f.poster_path && f.genre_ids.length
-  )
+  const popular = await tmdbApi('/movie/popular?page=1', {
+    arrayName: 'results',
+    enableFilter: true,
+  })
 
-  const getGenres = await api.get('/genre/movie/list')
+  const genres = await tmdbApi('/genre/movie/list', {
+    arrayName: 'genres',
+  })
 
   return {
     props: {
-      popular: popularWithImage,
-      genres: getGenres.data.genres,
+      popular,
+      genres,
     },
     revalidate: 60 * 60 * 24, // 1 dia
   }

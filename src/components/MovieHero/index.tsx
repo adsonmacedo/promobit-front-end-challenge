@@ -10,26 +10,26 @@ export default function MovieHero({ movie, releaseDates, credits }) {
   const [color, setColor] = useState(null)
 
   const data = {
-    country: releaseDates?.iso_3166_1,
-    certification: releaseDates?.release_dates[0].certification,
-    releaseDate: releaseDates?.release_dates[0].release_date,
+    country: releaseDates.iso_3166_1,
+    certification: releaseDates.release_dates[0]?.certification,
+    releaseDate: releaseDates.release_dates[0]?.release_date,
 
     crew: {
-      director: credits.crew.filter(c => c.job === 'Director')[0],
+      director: credits.crew.filter(f => f.job === 'Director')[0],
       screenplay: credits.crew
-        .filter(s => s.department === 'Writing')
+        .filter(f => f.department === 'Writing')
         .slice(0, 2),
     },
-
     cast: {
       characters: credits.cast
-        .filter(c => c.known_for_department === 'Acting')
+        .filter(f => f.known_for_department === 'Acting')
         .slice(0, 2),
     },
   }
 
   useEffect(() => {
     setPercent(movie.vote_average * 10)
+
     if (percent < 30) {
       setColor(theme.colors.rating.poor)
     } else if (percent < 70) {
@@ -46,12 +46,12 @@ export default function MovieHero({ movie, releaseDates, credits }) {
           <S.CoverContainer>
             <S.Cover
               src={tmdbImage(movie.poster_path, 400)}
-              alt={movie.title || movie.original_title}
+              alt={movie.title}
             />
           </S.CoverContainer>
           <S.MovieDetails>
             <S.Title>
-              {movie.title || movie.original_title} (
+              {movie.title} (
               {movie.release_date
                 ? format(new Date(movie.release_date + 'EDT'), 'yyyy')
                 : '-'}
@@ -71,7 +71,10 @@ export default function MovieHero({ movie, releaseDates, credits }) {
               )}
               <span>
                 {data.releaseDate
-                  ? format(new Date(data.releaseDate), 'dd/MM/yyyy')
+                  ? format(
+                      new Date(data.releaseDate.slice(0, 10) + 'EDT'),
+                      'dd/MM/yyyy'
+                    )
                   : '-'}{' '}
                 ({data.country})
               </span>

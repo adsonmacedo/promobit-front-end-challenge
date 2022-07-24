@@ -1,44 +1,38 @@
 import { format } from 'date-fns'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
-import { api } from '../../services/api'
 import { tmdbImage } from '../../utils/tmdbImage'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { HiX } from 'react-icons/hi'
 import * as S from './styles'
-
-export interface FilteredDataProps {
-  poster_path: string
-  genre_ids: number[]
-}
+import { tmdbApi } from '../../utils/tmdbApi'
 
 export default function Search() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [showResults, setShowResults] = useState(false)
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     setQuery(e.target.value)
 
     if (e.target.value) {
-      api
-        .get(
-          `https://api.themoviedb.org/3/search/movie?query=${e.target.value}&page=1&include_adult=false&api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-        )
-        .then(({ data }) => {
-          const filteredData = data.results.filter(
-            (f: FilteredDataProps) => f.poster_path && f.genre_ids.length
-          )
+      const data = await tmdbApi(
+        `https://api.themoviedb.org/3/search/movie?query=${e.target.value}&page=1&include_adult=false`,
+        {
+          arrayName: 'results',
+          enableFilter: true,
+        }
+      )
 
-          if (filteredData.length) {
-            setShowResults(true)
-            setResults(filteredData)
-          } else {
-            setShowResults(false)
-            setResults([])
-          }
-        })
+      if (data) {
+        setShowResults(true)
+        setResults(data)
+      } else {
+        setShowResults(false)
+        setResults([])
+      }
     } else {
       setShowResults(false)
       setResults([])
@@ -53,6 +47,12 @@ export default function Search() {
     if (results.length > 0) setShowResults(true)
   }
 
+  const clearInput = () => {
+    setQuery('')
+    setResults([])
+    setShowResults(false)
+  }
+
   return (
     <S.Container onBlur={handleBlur} onFocus={handleFocus}>
       <S.InputContainer>
@@ -61,6 +61,11 @@ export default function Search() {
           value={query}
           onChange={handleChange}
         />
+        {query && (
+          <button type="button" onClick={clearInput}>
+            <HiX size={20} />
+          </button>
+        )}
       </S.InputContainer>
 
       {showResults && (
@@ -74,13 +79,11 @@ export default function Search() {
                       <S.CoverContainer>
                         <S.Cover
                           src={tmdbImage(result.poster_path, 92)}
-                          alt={result.title || result.original_title}
+                          alt={result.title}
                         />
                       </S.CoverContainer>
                       <S.TextContainer>
-                        <S.Title>
-                          {result.title || result.original_title}
-                        </S.Title>
+                        <S.Title>{result.title}</S.Title>
                         <p>{result.overview || 'Sinopse não disponível'}</p>
                       </S.TextContainer>
                     </S.ResultLeft>

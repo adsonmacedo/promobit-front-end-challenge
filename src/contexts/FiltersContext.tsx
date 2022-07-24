@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useState,
 } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
 
 interface Props {
   children: ReactNode
@@ -23,7 +24,7 @@ const defaultValue: ContextType = {
 export const FiltersContext = createContext<ContextType>(defaultValue)
 
 export const FiltersProvider = ({ children }: Props) => {
-  const [filters, setFilters] = useState(defaultValue.filters)
+  const [filters, setFilters] = useLocalStorage('filters', [])
 
   return (
     <FiltersContext.Provider value={{ filters, setFilters }}>

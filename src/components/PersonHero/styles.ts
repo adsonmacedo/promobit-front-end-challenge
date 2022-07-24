@@ -70,18 +70,6 @@ export const Biography = styled.div`
   }
 `
 
-export const NoBiography = styled.button`
-  display: block;
-  margin-top: 8px;
-  border: none;
-  background: none;
-  color: #5c16c5;
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-decoration: underline;
-  cursor: pointer;
-`
-
 export const DetailsContent = styled.div`
   margin-top: 3.2rem;
   display: grid;
@@ -94,6 +82,26 @@ export const DetailsContent = styled.div`
 `
 
 export const Details = styled.div``
+
+export const EnglishBio = styled.div`
+  ${({ theme }) => css`
+    margin: 1.2rem 0;
+    display: inline-flex;
+    align-items: center;
+    background-color: #f5f1fb;
+    padding: 10px;
+    border-radius: 4px;
+
+    svg {
+      color: ${theme.colors.backgrounds.lightPurple};
+    }
+
+    span {
+      margin-left: 6px;
+      color: ${theme.colors.text.lighterBlack};
+    }
+  `}
+`
 
 export const Title = styled.h2`
   ${({ theme }) => css`

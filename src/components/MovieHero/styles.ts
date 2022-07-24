@@ -74,7 +74,9 @@ export const QuickInfo = styled.h4`
     `}
 
     > span {
-      margin: 0 5px;
+      &:not(:first-child) {
+        margin: 0 5px;
+      }
 
       ${media.lessThan('medium')`
         margin: 0;

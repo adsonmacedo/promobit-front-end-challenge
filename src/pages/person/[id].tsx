@@ -3,8 +3,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import PersonHero from '../../components/PersonHero'
 import Recommendations from '../../components/Recommendations'
-import { FilteredDataProps } from '../../components/Search'
-import { api } from '../../services/api'
+import { tmdbApi } from '../../utils/tmdbApi'
 
 export default function Person({ person, moviesByPerson }) {
   return (
@@ -23,16 +22,21 @@ export default function Person({ person, moviesByPerson }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const person = await api.get(`/person/${params.id}`)
-  const getMoviesByPerson = await api.get(`/person/${params.id}/movie_credits`)
+  const person = await tmdbApi(`/person/${params.id}`, {
+    axiosConfig: {
+      params: { language: 'pt-BR' },
+    },
+  })
 
-  const moviesByPerson = getMoviesByPerson.data.cast
-    .filter((f: FilteredDataProps) => f.poster_path && f.genre_ids.length)
-    .slice(0, 12)
+  const moviesByPerson = await tmdbApi(`/person/${params.id}/movie_credits`, {
+    arrayName: 'cast',
+    enableFilter: true,
+    slice: 12,
+  })
 
   return {
     props: {
-      person: person.data,
+      person,
       moviesByPerson,
     },
   }

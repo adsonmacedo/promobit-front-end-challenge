@@ -11,9 +11,11 @@ export const theme = {
       white: '#ffffff',
       gray: '#646464',
       lighterBlack: '#131313',
+      lighterGray: '#999999',
     },
     pagination: {
-      default: '#5C16C5',
+      default: '#BEA2E8',
+      active: '#5C16C5',
     },
     filters: {
       inactive: {

@@ -11,7 +11,7 @@ export default function Movies({ popular }) {
             key={item.id}
             id={item.id}
             image={tmdbImage(item.poster_path, 185)}
-            title={item.title || item.original_title}
+            title={item.title}
             releaseDate={item.release_date}
           />
         ))}

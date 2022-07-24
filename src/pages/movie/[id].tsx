@@ -1,33 +1,24 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { useContext, useEffect } from 'react'
 import CastCards from '../../components/CastCards'
 import Header from '../../components/Header'
 import MovieHero from '../../components/MovieHero'
 import Recommendations from '../../components/Recommendations'
-import { FilteredDataProps } from '../../components/Search'
 import Trailer from '../../components/Trailer'
-import { FiltersContext } from '../../contexts/FiltersContext'
-import { api } from '../../services/api'
 import MovieStyles from '../../styles/movie'
+import { tmdbApi } from '../../utils/tmdbApi'
 
 export default function Movie({
   movie,
   releaseDates,
   credits,
-  recommendations,
   trailer,
+  recommendations,
 }) {
-  const { setFilters } = useContext(FiltersContext)
-
-  useEffect(() => {
-    setFilters([])
-  }, [setFilters])
-
   return (
     <>
       <Head>
-        <title>{movie.title || movie.original_title}</title>
+        <title>{movie.title}</title>
       </Head>
       <MovieStyles />
       <Header />
@@ -40,53 +31,50 @@ export default function Movie({
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const getMovie = await api.get(`/movie/${params.id}`)
+  const movie = await tmdbApi(`/movie/${params.id}`)
 
-  const getReleaseDates = await api.get(`/movie/${params.id}/release_dates`)
-  const allReleaseDates = getReleaseDates.data.results
+  const allReleaseDates = await tmdbApi(`/movie/${params.id}/release_dates`, {
+    arrayName: 'results',
+  })
   const releaseDates =
-    allReleaseDates.filter(rd => rd.iso_3166_1 === 'BR')[0] ||
-    allReleaseDates.filter(rd => rd.iso_3166_1 === 'US')[0] ||
-    allReleaseDates[0]
+    allReleaseDates.filter(f => f.iso_3166_1 === 'BR')[0] ||
+    allReleaseDates.filter(f => f.iso_3166_1 === 'US')[0] ||
+    allReleaseDates[0] ||
+    null
 
-  const getCredits = await api.get(`/movie/${params.id}/credits`)
+  const credits = await tmdbApi(`/movie/${params.id}/credits`)
 
-  const getRecommendations = await api.get(
-    `/movie/${params.id}/recommendations`
-  )
-  const recommendations = getRecommendations.data.results
-    .filter((f: FilteredDataProps) => f.poster_path && f.genre_ids.length)
-    .slice(0, 12)
+  const trailer = await tmdbApi(`/movie/${params.id}/videos`, {
+    arrayName: 'results',
+    customFilter: f => f.type === 'Trailer',
+  })
 
-  const getVideos = await api.get(`/movie/${params.id}/videos`)
-  const trailer = getVideos.data.results.filter(
-    video => video.type === 'Trailer'
-  )
+  const recommendations = await tmdbApi(`/movie/${params.id}/recommendations`, {
+    arrayName: 'results',
+    enableFilter: true,
+    slice: 12,
+  })
 
   return {
     props: {
-      movie: getMovie.data,
+      movie,
       releaseDates,
-      credits: getCredits.data,
-      recommendations,
+      credits,
       trailer,
+      recommendations,
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await api.get(`/movie/popular?page=1`)
-  const movies = response.data.results.filter(
-    (f: FilteredDataProps) => f.poster_path && f.genre_ids.length
-  )
+  const movies = await tmdbApi('/movie/popular?page=1', {
+    arrayName: 'results',
+    enableFilter: true,
+  })
 
-  const ids = movies.map(movie => movie.id)
-  const paths = ids.map(id => ({
-    params: { id: id.toString() },
+  const paths = movies.map(movie => ({
+    params: { id: movie.id.toString() },
   }))
 
-  return {
-    paths,
-    fallback: 'blocking',
-  }
+  return { paths, fallback: 'blocking' }
 }

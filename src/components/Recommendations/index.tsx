@@ -17,7 +17,7 @@ export default function Recommendations({
                 key={rec.id}
                 id={rec.id}
                 image={tmdbImage(rec.poster_path, 185)}
-                title={rec.title || rec.original_title}
+                title={rec.title}
                 releaseDate={rec.release_date}
               />
             ))

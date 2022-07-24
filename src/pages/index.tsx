@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import Filters from '../components/Filters'
 import Header from '../components/Header'
 import Movies from '../components/Movies'
@@ -14,10 +14,20 @@ export default function Home({ popular, genres }) {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const { filters } = useContext(FiltersContext)
-  const { page, setTotal } = useContext(PaginationContext)
+  const { page, setPage, setTotal } = useContext(PaginationContext)
+  const ref = useRef(null)
 
   useEffect(() => {
-    setTotal(500)
+    ref.current.scrollIntoView({ behavior: 'smooth' })
+  }, [page])
+
+  useEffect(() => {
+    const init = () => {
+      if (page === 1 && !filters.length) {
+        setTotal(500)
+      }
+    }
+    init()
 
     const getMoviesByFilters = async () => {
       if (filters.length) {
@@ -28,6 +38,7 @@ export default function Home({ popular, genres }) {
         )
 
         setTotal(total_pages >= 500 ? 500 : total_pages)
+        if (page > total_pages) setPage(total_pages)
 
         const data = await tmdbApi(
           `/discover/movie?with_genres=${filters.join(',')}&page=${page}`,
@@ -61,7 +72,7 @@ export default function Home({ popular, genres }) {
       }
     }
     paginatePopular()
-  }, [filters, page, setTotal])
+  }, [filters, page, setPage, setTotal])
 
   return (
     <>
@@ -73,7 +84,7 @@ export default function Home({ popular, genres }) {
       </Head>
       <Header />
       <Filters genres={genres} />
-      <main>
+      <main ref={ref}>
         {isLoading ? <MoviesSkeleton /> : <Movies popular={data || popular} />}
       </main>
       <Pagination />

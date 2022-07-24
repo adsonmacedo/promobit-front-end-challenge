@@ -1,18 +1,32 @@
 import * as S from './styles'
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+} from 'react-icons/hi'
 import { useContext } from 'react'
 import cx from 'classnames'
 import { PaginationContext } from '../../contexts/PaginationContext'
+import { useMediaQuery, useIsClient } from 'usehooks-ts'
 
 export default function Pagination() {
   const { page, setPage, total } = useContext(PaginationContext)
+  const isClient = useIsClient()
+  const matches = useMediaQuery('(max-width: 500px)')
+
+  console.log(matches)
 
   return (
     <S.Container>
       <S.Wrapper>
         <S.Pagination>
           <S.Button disabled={page === 1} onClick={() => setPage(1)}>
-            Primeira
+            {isClient && matches ? (
+              <HiChevronDoubleLeft size={18} />
+            ) : (
+              'Primeira'
+            )}
           </S.Button>
           <S.Button
             disabled={page === 1}
@@ -48,7 +62,11 @@ export default function Pagination() {
             disabled={total === 1 || page === total}
             onClick={() => setPage(total)}
           >
-            Última
+            {isClient && matches ? (
+              <HiChevronDoubleRight size={18} />
+            ) : (
+              'Última'
+            )}
           </S.Button>
         </S.Pagination>
       </S.Wrapper>

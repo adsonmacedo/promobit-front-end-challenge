@@ -19,6 +19,10 @@ export const Pagination = styled.div`
   padding: 8px 16px;
   display: flex;
   align-items: center;
+
+  ${media.lessThan('small')`
+  padding: 8px;
+  `}
 `
 
 export const Button = styled.button`
@@ -36,13 +40,24 @@ export const Button = styled.button`
     transition: color 200ms;
     color: ${theme.colors.pagination.active};
 
+    ${media.lessThan('medium')`
+      min-width: 20px;
+    `}
+
+    ${media.lessThan('small')`
+      min-width: 15px;
+      padding: 5px;
+    `}
+
     &.numeric {
       color: ${theme.colors.pagination.default};
     }
 
-    &:hover {
-      color: ${theme.colors.pagination.active};
-    }
+    ${media.greaterThan('medium')`
+      &:hover {
+        color: ${theme.colors.pagination.active};
+      }
+    `}
 
     &:disabled,
     &:disabled:hover {

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import media from 'styled-media-query'
 
 export const Container = styled.section`
-  margin: 30px 0;
+  padding: 30px 0 0;
 `
 
 export const Wrapper = styled.div`

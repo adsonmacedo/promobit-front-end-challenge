@@ -66,6 +66,10 @@ export const ButtonNumeric = styled.div`
 
     button {
       color: ${theme.colors.pagination.default};
+
+      &:hover {
+        color: ${theme.colors.pagination.active};
+      }
     }
 
     ${media.lessThan('small')`

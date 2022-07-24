@@ -64,10 +64,13 @@ export default function Pagination({ onClick }) {
           </S.ButtonNumeric>
 
           <S.Button
-            disabled={total === 1 || page === total}
+            // disabled={total === 1 || page === total}
+            className={cx({ disabled: total === 1 || page === total })}
             onClick={() => {
-              setPage(page + 1)
-              onClick()
+              if (total !== 1 && page !== total) {
+                setPage(page + 1)
+                onClick()
+              }
             }}
           >
             <HiChevronRight size={20} />

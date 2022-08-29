@@ -32,7 +32,8 @@ Antes de iniciar o servidor, crie um arquivo chamado `.env.local` na raiz do pro
 NEXT_PUBLIC_TMDB_API_KEY=CHAVE_API_V3
 ```
 
-Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)**.
+Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)** do TMDB.
+* Saiba mais sobre aqui: https://www.themoviedb.org/documentation/api
 
 Inicie o servidor:
 

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Logo() {
   return (
-    <Link href="/">
+    <Link href="/" prefetch={false}>
       <svg
         width="185"
         height="24"

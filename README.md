@@ -21,9 +21,9 @@ cd promobit-front-end-challenge
 Installe as dependências:
 
 ```bash
-npm install
+pnpm install
 # ou
-yarn install
+npm install
 ```
 
 Antes de iniciar o servidor, crie um arquivo chamado `.env.local` na raiz do projeto, e cole o seguinte código:
@@ -33,14 +33,15 @@ NEXT_PUBLIC_TMDB_API_KEY=CHAVE_API_V3
 ```
 
 Substitua `CHAVE_API_V3` por sua **Chave da API (v3 auth)** do TMDB.
-* Saiba mais: https://www.themoviedb.org/documentation/api
+
+- Saiba mais: https://www.themoviedb.org/documentation/api
 
 Inicie o servidor:
 
 ```bash
-npm run dev
+pnpm install
 # ou
-yarn dev
+npm install
 ```
 
 Por fim, acesse [http://localhost:3000](http://localhost:3000) no browser.
@@ -57,23 +58,27 @@ Projeto desenvolvido seguindo o desafio de front-end do [Promobit](https://githu
 - Axios
 
 ## Requisitos funcionais
+
 - [x] O usuário deve ter acesso a uma listagem dos filmes mais populares do dia.
 - [x] O usuário deve conseguir paginar a lista para encontrar novos filmes.
 - [x] O usuário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem.
 - [x] A página com detalhes de um filme deve possuir uma rota própria e estar preparada para ser indexada em mecanismos de pesquisa.
 
 ## Requisitos não funcionais
+
 - [x] O app deverá ser criado usando React.
 - [x] Na raiz do projeto, será necessário incluir um arquivo README.md com as instruções para construir seu projeto localmente.
 - [x] O app deverá se comportar da mesma forma na última versão estável dos seguintes browsers: Chrome, Firefox, Edge.
 - [x] O app deverá ser responsivo.
 
 ## Features sugeridas pelo desafio
+
 - [x] O usuário deve conseguir filtrar os filmes listados por gênero, com a possibilidade de usar mais de um gênero.
 - [x] O usuário deve conseguir remover filtros e a listagem deve ser atualizada de acordo com o filtro removido.
 - [x] O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos.
 
 ## Features extras não sugeridas pelo desafio
+
 - [x] Filtros salvos no localStorage.
 - [x] Input de pesquisa.
 - [x] Cada pessoa do elenco tem a sua página específica com informações.

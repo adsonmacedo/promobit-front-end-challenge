@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import * as S from './styles'
 import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import Link from 'next/link'
+import * as S from './styles'
 
 type Props = {
   id: number
@@ -13,7 +13,7 @@ type Props = {
 export default function MovieCard({ id, image, title, releaseDate }: Props) {
   return (
     <S.Container>
-      <Link href={`/movie/${id}`}>
+      <Link href={`/movie/${id}`} prefetch={false}>
         <a>
           <S.Cover src={image} alt={title} />
           <S.Title>{title}</S.Title>

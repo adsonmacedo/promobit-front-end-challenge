@@ -1,11 +1,11 @@
 import { format } from 'date-fns'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
-import { tmdbImage } from '../../utils/tmdbImage'
-import 'react-loading-skeleton/dist/skeleton.css'
 import { HiX } from 'react-icons/hi'
-import * as S from './styles'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { tmdbApi } from '../../utils/tmdbApi'
+import { tmdbImage } from '../../utils/tmdbImage'
+import * as S from './styles'
 
 export default function Search() {
   const [query, setQuery] = useState('')
@@ -73,7 +73,7 @@ export default function Search() {
           <S.ResultsItems>
             {results.map(result => (
               <S.ResultsItem key={result.id}>
-                <Link href={`/movie/${result.id}`}>
+                <Link href={`/movie/${result.id}`} prefetch={false}>
                   <a>
                     <S.ResultLeft>
                       <S.CoverContainer>

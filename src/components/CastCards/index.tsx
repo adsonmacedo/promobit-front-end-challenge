@@ -1,8 +1,8 @@
-import { tmdbImage } from '../../utils/tmdbImage'
-import * as S from './styles'
-import { HiArrowSmRight } from 'react-icons/hi'
-import { AvatarMan, AvatarUnknown, AvatarWoman } from '../GenderAvatars'
 import Link from 'next/link'
+import { HiArrowSmRight } from 'react-icons/hi'
+import { tmdbImage } from '../../utils/tmdbImage'
+import { AvatarMan, AvatarUnknown, AvatarWoman } from '../GenderAvatars'
+import * as S from './styles'
 
 export default function CastCards({ credits, movie }) {
   const cast: any[] = credits.cast.slice(0, 10)
@@ -14,7 +14,7 @@ export default function CastCards({ credits, movie }) {
         <S.Content>
           {cast.map(person => (
             <S.Card key={person.id}>
-              <Link href={`/person/${person.id}`}>
+              <Link href={`/person/${person.id}`} prefetch={false}>
                 <a>
                   {person.profile_path ? (
                     <S.ProfileImage

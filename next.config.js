@@ -10,6 +10,7 @@ const nextConfig = {
   },
   experimental: {
     swcFileReading: false,
+    prefetchOnHover: false,
   },
 }
 

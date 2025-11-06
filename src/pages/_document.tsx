@@ -20,6 +20,18 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('mouseover', e => {
+                const a = e.target.closest('a[data-no-prefetch]');
+                if (a) {
+                  a.dataset.noprefetch = 'true';
+                }
+              });
+            `,
+          }}
+        />
         <body>
           <Main />
           <NextScript />

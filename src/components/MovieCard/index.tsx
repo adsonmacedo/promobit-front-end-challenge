@@ -14,17 +14,15 @@ export default function MovieCard({ id, image, title, releaseDate }: Props) {
   return (
     <S.Container>
       <Link href={`/movie/${id}`} prefetch={false}>
-        <a>
-          <S.Cover src={image} alt={title} />
-          <S.Title>{title}</S.Title>
-          <S.ReleaseDate>
-            {releaseDate
-              ? format(new Date(releaseDate + 'EDT'), 'dd MMM yyyy', {
-                  locale: ptBR,
-                })
-              : '-'}
-          </S.ReleaseDate>
-        </a>
+        <S.Cover src={image} alt={title} />
+        <S.Title>{title}</S.Title>
+        <S.ReleaseDate>
+          {releaseDate
+            ? format(new Date(releaseDate + 'EDT'), 'dd MMM yyyy', {
+                locale: ptBR,
+              })
+            : '-'}
+        </S.ReleaseDate>
       </Link>
     </S.Container>
   )

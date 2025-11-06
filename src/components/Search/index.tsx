@@ -74,25 +74,23 @@ export default function Search() {
             {results.map(result => (
               <S.ResultsItem key={result.id}>
                 <Link href={`/movie/${result.id}`} prefetch={false}>
-                  <a>
-                    <S.ResultLeft>
-                      <S.CoverContainer>
-                        <S.Cover
-                          src={tmdbImage(result.poster_path, 92)}
-                          alt={result.title}
-                        />
-                      </S.CoverContainer>
-                      <S.TextContainer>
-                        <S.Title>{result.title}</S.Title>
-                        <p>{result.overview || 'Sinopse não disponível'}</p>
-                      </S.TextContainer>
-                    </S.ResultLeft>
-                    <S.ResultRight>
-                      {result.release_date
-                        ? format(new Date(result.release_date), 'yyyy')
-                        : '-'}
-                    </S.ResultRight>
-                  </a>
+                  <S.ResultLeft>
+                    <S.CoverContainer>
+                      <S.Cover
+                        src={tmdbImage(result.poster_path, 92)}
+                        alt={result.title}
+                      />
+                    </S.CoverContainer>
+                    <S.TextContainer>
+                      <S.Title>{result.title}</S.Title>
+                      <p>{result.overview || 'Sinopse não disponível'}</p>
+                    </S.TextContainer>
+                  </S.ResultLeft>
+                  <S.ResultRight>
+                    {result.release_date
+                      ? format(new Date(result.release_date), 'yyyy')
+                      : '-'}
+                  </S.ResultRight>
                 </Link>
               </S.ResultsItem>
             ))}

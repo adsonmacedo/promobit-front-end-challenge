@@ -15,28 +15,26 @@ export default function CastCards({ credits, movie }) {
           {cast.map(person => (
             <S.Card key={person.id}>
               <Link href={`/person/${person.id}`} prefetch={false}>
-                <a>
-                  {person.profile_path ? (
-                    <S.ProfileImage
-                      src={tmdbImage(person.profile_path, 185)}
-                      alt={person.name}
-                    />
-                  ) : (
-                    <S.NoPicture>
-                      {person.gender === 1 && (
-                        <AvatarWoman color="#c9c9c9" size={80} />
-                      )}
-                      {person.gender === 2 && (
-                        <AvatarMan color="#c9c9c9" size={80} />
-                      )}
-                      {(person.gender === 0 || person.gender >= 3) && (
-                        <AvatarUnknown color="#c9c9c9" size={80} />
-                      )}
-                    </S.NoPicture>
-                  )}
-                  <h3>{person.name}</h3>
-                  <span>{person.character}</span>
-                </a>
+                {person.profile_path ? (
+                  <S.ProfileImage
+                    src={tmdbImage(person.profile_path, 185)}
+                    alt={person.name}
+                  />
+                ) : (
+                  <S.NoPicture>
+                    {person.gender === 1 && (
+                      <AvatarWoman color="#c9c9c9" size={80} />
+                    )}
+                    {person.gender === 2 && (
+                      <AvatarMan color="#c9c9c9" size={80} />
+                    )}
+                    {(person.gender === 0 || person.gender >= 3) && (
+                      <AvatarUnknown color="#c9c9c9" size={80} />
+                    )}
+                  </S.NoPicture>
+                )}
+                <h3>{person.name}</h3>
+                <span>{person.character}</span>
               </Link>
             </S.Card>
           ))}

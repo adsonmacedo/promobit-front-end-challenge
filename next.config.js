@@ -1,16 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: false,
-  compiler: {
-    styledComponents: true,
-  },
+  swcMinify: true,
   images: {
-    domains: ['image.tmdb.org'],
-  },
-  experimental: {
-    swcFileReading: false,
-    prefetchOnHover: false,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+      },
+    ],
   },
 }
 
